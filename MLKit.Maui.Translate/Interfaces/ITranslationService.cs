@@ -21,7 +21,7 @@ public interface ITranslationService
     /// Translates the specified text from the source language to the target language.
     /// </summary>
     /// <remarks>
-    /// If the translation model for either the source or target language is not already downloaded, it will attempt to download it before performing the translation.
+    /// The language models must be downloaded before this is called.
     /// </remarks>
     Task<TranslationResult> Translate(string text, Language sourceLanguage, Language targetLanguage);
 }

@@ -82,19 +82,6 @@ public class TranslationService : ITranslationService
             .Build();
         var translator = Translation.GetClient(options);
 
-        // Download Language Models
-        await translator.DownloadModelIfNeeded(DownloadOptions.Default.ToAndroidDownloadConditions())
-            .AddOnFailureListener(new OnFailureListener((ex) =>
-            {
-                translationResult = new(null, false, ex.Message);
-            }));
-
-        if (translationResult is not null)
-        {
-            translator.Close();
-            return translationResult;
-        }
-
         // Translate the text
         await translator.Translate(text)
             .AddOnSuccessListener(new OnSuccessListener((translatedText) =>

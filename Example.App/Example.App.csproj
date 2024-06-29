@@ -14,7 +14,7 @@
 		<ApplicationTitle>MLKit Translate</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.example.app</ApplicationId>
+		<ApplicationId>com.mlkit.translate.example.app</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
