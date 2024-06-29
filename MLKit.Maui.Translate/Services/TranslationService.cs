@@ -1,5 +1,6 @@
 ﻿
 
+
 namespace MLKit.Maui.Translate;
 
 #if !ANDROID && !IOS
@@ -9,9 +10,24 @@ namespace MLKit.Maui.Translate;
 /// </summary>
 public class TranslationService : ITranslationService
 {
-    public Task<DeleteResult> DeleteLanguageModel(string language) => throw new NotImplementedException();
-    public Task<DownloadResult> DownloadLanguageModel(string sourceLanguage, DownloadOptions downloadOptions) => throw new NotImplementedException();
-    public Task<List<string>> GetDownloadedLanguageModels() => throw new NotImplementedException();
-    public Task<TranslationResult> Translate(string text, string sourceLanguage, string targetLanguage) => throw new NotImplementedException();
+    public Task<DeleteResult> DeleteLanguageModel(Language language)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<DownloadResult> DownloadLanguageModel(Language sourceLanguage, DownloadOptions downloadOptions)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<List<Language>> GetDownloadedLanguageModels()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<TranslationResult> Translate(string text, Language sourceLanguage, Language targetLanguage)
+    {
+        throw new NotImplementedException();
+    }
 }
 #endif

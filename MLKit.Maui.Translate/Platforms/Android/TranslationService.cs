@@ -1,5 +1,4 @@
 ﻿using Android.Gms.Extensions;
-using Android.Gms.Tasks;
 using Java.Interop;
 using Java.Lang;
 using MLKit.Maui.Translate.Platforms.Android;
@@ -8,13 +7,17 @@ using Xamarin.Google.MLKit.NL.Translate;
 
 namespace MLKit.Maui.Translate;
 
+/// <summary>
+/// The Android implementation of <see cref="ITranslationService"/>
+/// </summary>
 public class TranslationService : ITranslationService
 {
-    public async Task<DownloadResult> DownloadLanguageModel(string sourceLanguage, DownloadOptions downloadOptions)
+    /// <inheritdoc />
+    public async Task<DownloadResult> DownloadLanguageModel(Language sourceLanguage, DownloadOptions downloadOptions)
     {
         var downloadResult = new DownloadResult();
 
-        var languageModel = new TranslateRemoteModel.Builder(sourceLanguage).Build();
+        var languageModel = new TranslateRemoteModel.Builder(sourceLanguage.Tag).Build();
         await RemoteModelManager.Instance.Download(languageModel, downloadOptions.ToAndroidDownloadConditions())
             .AddOnFailureListener(new OnFailureListener((ex) =>
             {
@@ -24,11 +27,12 @@ public class TranslationService : ITranslationService
         return downloadResult!;
     }
 
-    public async Task<DeleteResult> DeleteLanguageModel(string language)
+    /// <inheritdoc />
+    public async Task<DeleteResult> DeleteLanguageModel(Language language)
     {
         var deleteResult = new DeleteResult();
 
-        var languageModel = new TranslateRemoteModel.Builder(language).Build();
+        var languageModel = new TranslateRemoteModel.Builder(language.Tag).Build();
         var modelManager = RemoteModelManager.Instance;
 
         await modelManager.DeleteDownloadedModel(languageModel)
@@ -40,32 +44,41 @@ public class TranslationService : ITranslationService
         return deleteResult;
     }
 
-    public async Task<List<string>> GetDownloadedLanguageModels()
+    /// <inheritdoc />
+    public async Task<List<Language>> GetDownloadedLanguageModels()
     {
+        // Get TranslateRemoteModels
         var modelManager = RemoteModelManager.Instance;
         var result = await modelManager.GetDownloadedModels(Class.FromType(typeof(TranslateRemoteModel)));
         var javaSet = result.JavaCast<Java.Util.HashSet>();
 
-        var models = new HashSet<TranslateRemoteModel>();
-        var iterator = javaSet.Iterator();
-        while (iterator.HasNext)
+        var languages = new List<Language>();
+
+        // Transform from TranslateRemoteModels to Languages
+        var modelIterator = javaSet.Iterator();
+        while (modelIterator.HasNext)
         {
-            var item = iterator.Next().JavaCast<TranslateRemoteModel>();
-            if (item is not null)
-                models.Add(item);
+            var model = modelIterator.Next().JavaCast<TranslateRemoteModel>();
+            if (model is null)
+                continue;
+
+            var language = Languages.LanguageFromTag(model.Language);
+            if (language is not null)
+                languages.Add(language);
         }
 
-        return models.Select(model => model.Language).ToList();
+        return languages;
     }
 
-    public async Task<TranslationResult> Translate(string text, string sourceLanguage, string targetLanguage)
+    /// <inheritdoc />
+    public async Task<TranslationResult> Translate(string text, Language sourceLanguage, Language targetLanguage)
     {
         TranslationResult? translationResult = null;
 
         // Get translator
         var options = new TranslatorOptions.Builder()
-            .SetSourceLanguage(sourceLanguage)
-            .SetTargetLanguage(targetLanguage)
+            .SetSourceLanguage(sourceLanguage.Tag)
+            .SetTargetLanguage(targetLanguage.Tag)
             .Build();
         var translator = Translation.GetClient(options);
 
@@ -77,7 +90,10 @@ public class TranslationService : ITranslationService
             }));
 
         if (translationResult is not null)
+        {
+            translator.Close();
             return translationResult;
+        }
 
         // Translate the text
         await translator.Translate(text)
@@ -90,37 +106,7 @@ public class TranslationService : ITranslationService
                 translationResult = new(null, false, ex.Message);
             }));
 
-        return translationResult!;
-    }
-
-    public void CloseTranslator()
-    {
-        var options = new TranslatorOptions.Builder()
-            .SetSourceLanguage(Languages.English)
-            .SetTargetLanguage(Languages.Spanish)
-            .Build();
-
-        var translator = Translation.GetClient(options);
         translator.Close();
-    }
-}
-
-public class OnSuccessListener(Action<string> onSuccess) : Java.Lang.Object, IOnSuccessListener
-{
-    private readonly Action<string> _onSuccess = onSuccess;
-
-    public void OnSuccess(Java.Lang.Object result)
-    {
-        _onSuccess(result.ToString());
-    }
-}
-
-public class OnFailureListener(Action<Java.Lang.Exception> onFailure) : Java.Lang.Object, IOnFailureListener
-{
-    private readonly Action<Java.Lang.Exception> _onFailure = onFailure;
-
-    public void OnFailure(Java.Lang.Exception e)
-    {
-        _onFailure(e);
+        return translationResult!;
     }
 }

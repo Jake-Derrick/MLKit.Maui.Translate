@@ -1,47 +1,51 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MLKit.Maui.Translate;
 using System.ComponentModel;
-using System.Windows.Input;
 
 namespace Example.App;
 
 public partial class TranslationExampleViewModel : ObservableObject, INotifyPropertyChanged
 {
     private readonly ITranslationService _translationService;
-    public ICommand TranslateCommand { get; protected set; }
 
     public TranslationExampleViewModel(ITranslationService translationService)
     {
         _translationService = translationService;
-        TranslateCommand = new Command(TranslateClicked);
     }
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(ButtonEnabled))]
-    private string _selectedSourceLanguage = Languages.English;
+    private Language? _selectedSourceLanguage = Languages.English;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(ButtonEnabled))]
-    private string? _selectedTargetLanguage;
+    private Language? _selectedTargetLanguage;
 
     [ObservableProperty]
-    [NotifyPropertyChangedFor(nameof(ButtonEnabled))]
     private string? _inputText;
 
     [ObservableProperty]
     private string? _translatedText;
 
     [ObservableProperty]
-    private List<string> _availableLanguages = [Languages.English, Languages.Spanish, Languages.German];
+    private static List<Language> _availableLanguages = Languages.AllLanguages;
 
-    private bool ButtonEnabled => SelectedSourceLanguage is not null && SelectedTargetLanguage is not null && InputText is not null;
+    async partial void OnInputTextChanged(string? value) => await TranslateInputText();
+    async partial void OnSelectedSourceLanguageChanged(Language? value) => await TranslateInputText();
+    async partial void OnSelectedTargetLanguageChanged(Language? value) => await TranslateInputText();
 
-    private async void TranslateClicked()
+    private async Task TranslateInputText()
     {
+        if (SelectedSourceLanguage is null || SelectedTargetLanguage is null || InputText is null)
+            return;
+
         var translationResult = await _translationService.Translate(InputText!, SelectedSourceLanguage, SelectedTargetLanguage!);
         if (!translationResult.IsSuccess)
             return; // TODO: Display Error
 
         TranslatedText = translationResult.TranslatedText;
+    }
+
+    internal void OnDisappearing()
+    {
+        //_translationService.Close()
     }
 }

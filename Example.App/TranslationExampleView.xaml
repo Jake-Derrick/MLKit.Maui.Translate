@@ -1,27 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Example.App.TranslationExampleView">
+             x:Class="Example.App.TranslationExampleView" BackgroundColor="{StaticResource Gray900}">
 
-    <VerticalStackLayout>
+    <Grid RowDefinitions="4*,6*">
         <!-- Top section: Input -->
-        <ScrollView Margin="20">
-            <VerticalStackLayout>
-                <Picker Title="Select a Language" ItemsSource="{Binding AvailableLanguages}" SelectedItem="{Binding SelectedSourceLanguage}"/>
-                <Label Text="Enter text:" />
-                <Editor Placeholder="Type here" Text="{Binding InputText}"/>
+        <Border Margin="10" StrokeShape="RoundRectangle 10,10,10,10">
+            <VerticalStackLayout BackgroundColor="{StaticResource Gray600}">
+                <Picker Title="Select a Language" ItemsSource="{Binding AvailableLanguages}" SelectedItem="{Binding SelectedSourceLanguage}" ItemDisplayBinding="{Binding Name}" FontSize="Medium"/>
+                <Editor Placeholder="Type here" Text="{Binding InputText}" FontSize="Medium" AutoSize="TextChanges" MinimumHeightRequest="50"/>
             </VerticalStackLayout>
-        </ScrollView>
-
-        <!-- Middle section: Translate button -->
-        <Button Text="Translate" Command="{Binding TranslateCommand}" IsEnabled="{Binding ButtonEnabled}" HorizontalOptions="Center" Margin="10" />
-
+        </Border>
+        
         <!-- Bottom section: Output -->
-        <StackLayout Margin="20">
-            <Picker Title="Select a Language" ItemsSource="{Binding AvailableLanguages}" SelectedItem="{Binding SelectedTargetLanguage}"/>
-            <Label Text="Translated text:" />
-            <Label Text="{Binding TranslatedText}" />
-        </StackLayout>
-    </VerticalStackLayout>
+        <Border Grid.Row="1" Margin="10" StrokeShape="RoundRectangle 10,10,10,10">
+            <ScrollView BackgroundColor="{StaticResource Gray600}">
+                <VerticalStackLayout>
+                    <Picker Title="Select a Language" ItemsSource="{Binding AvailableLanguages}" SelectedItem="{Binding SelectedTargetLanguage}" ItemDisplayBinding="{Binding Name}" FontSize="Medium"/>
+                    <Label Text="{Binding TranslatedText}" FontSize="Medium"/>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
 
 </ContentPage>

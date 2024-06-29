@@ -1,184 +1,265 @@
 ﻿namespace MLKit.Maui.Translate;
 
 /// <summary>
-///  Supported language values. Uses BCP 47 language tags.
+/// Represents a language with its BCP 47 language tag and readable name.
+/// </summary>
+/// <param name="Name">The readable language name.</param>
+/// <param name="Tag">The BCP 47 language tag.</param>
+public record Language(string Name, string Tag);
+
+/// <summary>
+/// Supported language values.
 /// </summary>
 public static class Languages
 {
     /// <summary>Afrikaans (af)</summary>
-    public const string Afrikaans = "af";
+    public static Language Afrikaans => new("Afrikaans", "af");
 
     /// <summary>Albanian (sq)</summary>
-    public const string Albanian = "sq";
+    public static Language Albanian => new("Albanian", "sq");
 
     /// <summary>Arabic (ar)</summary>
-    public const string Arabic = "ar";
+    public static Language Arabic => new("Arabic", "ar");
 
     /// <summary>Belarusian (be)</summary>
-    public const string Belarusian = "be";
+    public static Language Belarusian => new("Belarusian", "be");
 
     /// <summary>Bengali (bn). Also known as Bangla.</summary>
-    public const string Bengali = "bn";
+    public static Language Bengali => new("Bengali", "bn");
 
     /// <summary>Bulgarian (bg)</summary>
-    public const string Bulgarian = "bg";
+    public static Language Bulgarian => new("Bulgarian", "bg");
 
     /// <summary>Catalan (ca)</summary>
-    public const string Catalan = "ca";
+    public static Language Catalan => new("Catalan", "ca");
 
     /// <summary>Chinese (zh)</summary>
-    public const string Chinese = "zh";
+    public static Language Chinese => new("Chinese", "zh");
 
     /// <summary>Croatian (hr)</summary>
-    public const string Croatian = "hr";
+    public static Language Croatian => new("Croatian", "hr");
 
     /// <summary>Czech (cs)</summary>
-    public const string Czech = "cs";
+    public static Language Czech => new("Czech", "cs");
 
     /// <summary>Danish (da)</summary>
-    public const string Danish = "da";
+    public static Language Danish => new("Danish", "da");
 
     /// <summary>Dutch (nl)</summary>
-    public const string Dutch = "nl";
+    public static Language Dutch => new("Dutch", "nl");
 
     /// <summary>English (en)</summary>
-    public const string English = "en";
+    public static Language English => new("English", "en");
 
     /// <summary>Esperanto (eo)</summary>
-    public const string Esperanto = "eo";
+    public static Language Esperanto => new("Esperanto", "eo");
 
     /// <summary>Estonian (et)</summary>
-    public const string Estonian = "et";
+    public static Language Estonian => new("Estonian", "et");
 
     /// <summary>Finnish (fi)</summary>
-    public const string Finnish = "fi";
+    public static Language Finnish => new("Finnish", "fi");
 
     /// <summary>French (fr)</summary>
-    public const string French = "fr";
+    public static Language French => new("French", "fr");
 
     /// <summary>Galician (gl)</summary>
-    public const string Galician = "gl";
+    public static Language Galician => new("Galician", "gl");
 
     /// <summary>Georgian (ka)</summary>
-    public const string Georgian = "ka";
+    public static Language Georgian => new("Georgian", "ka");
 
     /// <summary>German (de)</summary>
-    public const string German = "de";
+    public static Language German => new("German", "de");
 
     /// <summary>Greek (el)</summary>
-    public const string Greek = "el";
+    public static Language Greek => new("Greek", "el");
 
     /// <summary>Gujarati (gu)</summary>
-    public const string Gujarati = "gu";
+    public static Language Gujarati => new("Gujarati", "gu");
 
     /// <summary>Haitian Creole (ht)</summary>
-    public const string Haitian_Creole = "ht";
+    public static Language Haitian_Creole => new("Haitian Creole", "ht");
 
     /// <summary>Hebrew (he)</summary>
-    public const string Hebrew = "he";
+    public static Language Hebrew => new("Hebrew", "he");
 
     /// <summary>Hindi (hi)</summary>
-    public const string Hindi = "hi";
+    public static Language Hindi => new("Hindi", "hi");
 
     /// <summary>Hungarian (hu)</summary>
-    public const string Hungarian = "hu";
+    public static Language Hungarian => new("Hungarian", "hu");
 
     /// <summary>Icelandic (is)</summary>
-    public const string Icelandic = "is";
+    public static Language Icelandic => new("Icelandic", "is");
 
     /// <summary>Indonesian (id)</summary>
-    public const string Indonesian = "id";
+    public static Language Indonesian => new("Indonesian", "id");
 
     /// <summary>Irish (ga)</summary>
-    public const string Irish = "ga";
+    public static Language Irish => new("Irish", "ga");
 
     /// <summary>Italian (it)</summary>
-    public const string Italian = "it";
+    public static Language Italian => new("Italian", "it");
 
     /// <summary>Japanese (ja)</summary>
-    public const string Japanese = "ja";
+    public static Language Japanese => new("Japanese", "ja");
 
     /// <summary>Kannada (kn)</summary>
-    public const string Kannada = "kn";
+    public static Language Kannada => new("Kannada", "kn");
 
     /// <summary>Korean (ko)</summary>
-    public const string Korean = "ko";
+    public static Language Korean => new("Korean", "ko");
 
     /// <summary>Latvian (lv)</summary>
-    public const string Latvian = "lv";
+    public static Language Latvian => new("Latvian", "lv");
 
     /// <summary>Lithuanian (lt)</summary>
-    public const string Lithuanian = "lt";
+    public static Language Lithuanian => new("Lithuanian", "lt");
 
     /// <summary>Macedonian (mk)</summary>
-    public const string Macedonian = "mk";
+    public static Language Macedonian => new("Macedonian", "mk");
 
     /// <summary>Malay (ms)</summary>
-    public const string Malay = "ms";
+    public static Language Malay => new("Malay", "ms");
 
     /// <summary>Maltese (mt)</summary>
-    public const string Maltese = "mt";
+    public static Language Maltese => new("Maltese", "mt");
 
     /// <summary>Marathi (mr)</summary>
-    public const string Marathi = "mr";
+    public static Language Marathi => new("Marathi", "mr");
 
     /// <summary>Norwegian (no)</summary>
-    public const string Norwegian = "no";
+    public static Language Norwegian => new("Norwegian", "no");
 
     /// <summary>Persian (fa). Also known as Farsi.</summary>
-    public const string Persian = "fa";
+    public static Language Persian => new("Persian", "fa");
 
     /// <summary>Polish (pl)</summary>
-    public const string Polish = "pl";
+    public static Language Polish => new("Polish", "pl");
 
     /// <summary>Portuguese (pt)</summary>
-    public const string Portuguese = "pt";
+    public static Language Portuguese => new("Portuguese", "pt");
 
     /// <summary>Romanian (ro)</summary>
-    public const string Romanian = "ro";
+    public static Language Romanian => new("Romanian", "ro");
 
     /// <summary>Russian (ru)</summary>
-    public const string Russian = "ru";
+    public static Language Russian => new("Russian", "ru");
 
     /// <summary>Slovak (sk)</summary>
-    public const string Slovak = "sk";
+    public static Language Slovak => new("Slovak", "sk");
 
     /// <summary>Slovenian (sl)</summary>
-    public const string Slovenian = "sl";
+    public static Language Slovenian => new("Slovenian", "sl");
 
     /// <summary>Spanish (es)</summary>
-    public const string Spanish = "es";
+    public static Language Spanish => new("Spanish", "es");
 
     /// <summary>Swahili (sw)</summary>
-    public const string Swahili = "sw";
+    public static Language Swahili => new("Swahili", "sw");
 
     /// <summary>Swedish (sv)</summary>
-    public const string Swedish = "sv";
+    public static Language Swedish => new("Swedish", "sv");
 
     /// <summary>Tagalog (tl)</summary>
-    public const string Tagalog = "tl";
+    public static Language Tagalog => new("Tagalog", "tl");
 
     /// <summary>Tamil (ta)</summary>
-    public const string Tamil = "ta";
+    public static Language Tamil => new("Tamil", "ta");
 
     /// <summary>Telugu (te)</summary>
-    public const string Telugu = "te";
+    public static Language Telugu => new("Telugu", "te");
 
     /// <summary>Thai (th)</summary>
-    public const string Thai = "th";
+    public static Language Thai => new("Thai", "th");
 
     /// <summary>Turkish (tr)</summary>
-    public const string Turkish = "tr";
+    public static Language Turkish => new("Turkish", "tr");
 
     /// <summary>Ukrainian (uk)</summary>
-    public const string Ukrainian = "uk";
+    public static Language Ukrainian => new("Ukrainian", "uk");
 
     /// <summary>Urdu (ur)</summary>
-    public const string Urdu = "ur";
+    public static Language Urdu => new("Urdu", "ur");
 
     /// <summary>Vietnamese (vi)</summary>
-    public const string Vietnamese = "vi";
+    public static Language Vietnamese => new("Vietnamese", "vi");
 
     /// <summary>Welsh (cy)</summary>
-    public const string Welsh = "cy";
+    public static Language Welsh => new("Welsh", "cy");
+
+    /// <summary>
+    /// A collection of all supported languages.
+    /// </summary>
+    public static List<Language> AllLanguages =>
+    [
+        Afrikaans,
+        Albanian,
+        Arabic,
+        Belarusian,
+        Bengali,
+        Bulgarian,
+        Catalan,
+        Chinese,
+        Croatian,
+        Czech,
+        Danish,
+        Dutch,
+        English,
+        Esperanto,
+        Estonian,
+        Finnish,
+        French,
+        Galician,
+        Georgian,
+        German,
+        Greek,
+        Gujarati,
+        Haitian_Creole,
+        Hebrew,
+        Hindi,
+        Hungarian,
+        Icelandic,
+        Indonesian,
+        Irish,
+        Italian,
+        Japanese,
+        Kannada,
+        Korean,
+        Latvian,
+        Lithuanian,
+        Macedonian,
+        Malay,
+        Maltese,
+        Marathi,
+        Norwegian,
+        Persian,
+        Polish,
+        Portuguese,
+        Romanian,
+        Russian,
+        Slovak,
+        Slovenian,
+        Spanish,
+        Swahili,
+        Swedish,
+        Tagalog,
+        Tamil,
+        Telugu,
+        Thai,
+        Turkish,
+        Ukrainian,
+        Urdu,
+        Vietnamese,
+        Welsh
+    ];
+
+    /// <summary>
+    /// Finds and returns the language corresponding to the given BCP 47 language tag.
+    /// </summary>
+    /// <param name="tag">The BCP 47 language tag to search for.</param>
+    /// <returns>The corresponding <see cref="Language"/> object if found; otherwise <c>null</c>.</returns>
+    public static Language? LanguageFromTag(string tag) => AllLanguages.FirstOrDefault(language => language.Tag.Equals(tag, StringComparison.OrdinalIgnoreCase));
 }
+
